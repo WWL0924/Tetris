@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <style>
+    .title { font-family: Noto Sans SC, Microsoft YaHei, PingFang SC, SimHei, sans-serif; font-size: 72px; letter-spacing: 6px; }
+    .label { font-family: Noto Sans SC, Microsoft YaHei, PingFang SC, SimHei, sans-serif; font-size: 28px; }
+  </style>
+  <pattern id="grid20" width="20" height="20" patternUnits="userSpaceOnUse">
+    <rect width="20" height="20" fill="#0b1015"/>
+    <path d="M 20 0 L 0 0 0 20" stroke="#2a2e35" stroke-width="1" shape-rendering="crispEdges"/>
+  </pattern>
+</defs>
+<rect x="0" y="0" width="1200" height="900" fill="#1b1f23"/>
+<rect x="350" y="170" width="500" height="600" fill="url(#grid20)" stroke="#3b4552" stroke-width="16"/>
+<rect x="334" y="154" width="532" height="632" fill="none" stroke="#1f252d" stroke-width="16"/>
+<rect x="350" y="790" width="500" height="80" fill="#10151b" stroke="#2b3540" stroke-width="12"/>
+<g transform="translate(350,170)">
+  <g transform="translate(40,40)">
+    <g>
+      <rect width="20" height="20" fill="#00fdff"/>
+      <rect width="20" height="4" fill="#bdfdff"/>
+      <rect width="4" height="20" fill="#bdfdff"/>
+      <rect y="16" width="20" height="4" fill="#0aa7b0"/>
+      <rect x="16" width="4" height="20" fill="#0aa7b0"/>
+    </g>
+    <g transform="translate(20,0)">
+      <rect width="20" height="20" fill="#00fdff"/>
+      <rect width="20" height="4" fill="#bdfdff"/>
+      <rect width="4" height="20" fill="#bdfdff"/>
+      <rect y="16" width="20" height="4" fill="#0aa7b0"/>
+      <rect x="16" width="4" height="20" fill="#0aa7b0"/>
+    </g>
+    <g transform="translate(40,0)">
+      <rect width="20" height="20" fill="#00fdff"/>
+      <rect width="20" height="4" fill="#bdfdff"/>
+      <rect width="4" height="20" fill="#bdfdff"/>
+      <rect y="16" width="20" height="4" fill="#0aa7b0"/>
+      <rect x="16" width="4" height="20" fill="#0aa7b0"/>
+    </g>
+    <g transform="translate(60,0)">
+      <rect width="20" height="20" fill="#00fdff"/>
+      <rect width="20" height="4" fill="#bdfdff"/>
+      <rect width="4" height="20" fill="#bdfdff"/>
+      <rect y="16" width="20" height="4" fill="#0aa7b0"/>
+      <rect x="16" width="4" height="20" fill="#0aa7b0"/>
+    </g>
+  </g>
+  <g transform="translate(140,140)">
+    <g transform="translate(20,0)">
+      <rect width="20" height="20" fill="#ff4d8f"/>
+      <rect width="20" height="4" fill="#ff98bd"/>
+      <rect width="4" height="20" fill="#ff98bd"/>
+      <rect y="16" width="20" height="4" fill="#b03068"/>
+      <rect x="16" width="4" height="20" fill="#b03068"/>
+    </g>
+    <g transform="translate(0,20)">
+      <rect width="20" height="20" fill="#ff4d8f"/>
+      <rect width="20" height="4" fill="#ff98bd"/>
+      <rect width="4" height="20" fill="#ff98bd"/>
+      <rect y="16" width="20" height="4" fill="#b03068"/>
+      <rect x="16" width="4" height="20" fill="#b03068"/>
+    </g>
+    <g transform="translate(20,20)">
+      <rect width="20" height="20" fill="#ff4d8f"/>
+      <rect width="20" height="4" fill="#ff98bd"/>
+      <rect width="4" height="20" fill="#ff98bd"/>
+      <rect y="16" width="20" height="4" fill="#b03068"/>
+      <rect x="16" width="4" height="20" fill="#b03068"/>
+    </g>
+    <g transform="translate(40,20)">
+      <rect width="20" height="20" fill="#ff4d8f"/>
+      <rect width="20" height="4" fill="#ff98bd"/>
+      <rect width="4" height="20" fill="#ff98bd"/>
+      <rect y="16" width="20" height="4" fill="#b03068"/>
+      <rect x="16" width="4" height="20" fill="#b03068"/>
+    </g>
+  </g>
+  <g transform="translate(310,420)">
+    <g>
+      <rect width="20" height="20" fill="#ffd64f"/>
+      <rect width="20" height="4" fill="#fff2b3"/>
+      <rect width="4" height="20" fill="#fff2b3"/>
+      <rect y="16" width="20" height="4" fill="#cc9a00"/>
+      <rect x="16" width="4" height="20" fill="#cc9a00"/>
+    </g>
+    <g transform="translate(20,0)">
+      <rect width="20" height="20" fill="#ffd64f"/>
+      <rect width="20" height="4" fill="#fff2b3"/>
+      <rect width="4" height="20" fill="#fff2b3"/>
+      <rect y="16" width="20" height="4" fill="#cc9a00"/>
+      <rect x="16" width="4" height="20" fill="#cc9a00"/>
+    </g>
+    <g transform="translate(0,20)">
+      <rect width="20" height="20" fill="#ffd64f"/>
+      <rect width="20" height="4" fill="#fff2b3"/>
+      <rect width="4" height="20" fill="#fff2b3"/>
+      <rect y="16" width="20" height="4" fill="#cc9a00"/>
+      <rect x="16" width="4" height="20" fill="#cc9a00"/>
+    </g>
+    <g transform="translate(20,20)">
+      <rect width="20" height="20" fill="#ffd64f"/>
+      <rect width="20" height="4" fill="#fff2b3"/>
+      <rect width="4" height="20" fill="#fff2b3"/>
+      <rect y="16" width="20" height="4" fill="#cc9a00"/>
+      <rect x="16" width="4" height="20" fill="#cc9a00"/>
+    </g>
+  </g>
+</g>
+</svg>

@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>俄罗斯方块</title>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="area"></div>
+    <div class="death"></div>
+  </div>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .wrap {
+      background: #0f1419;
+      border: 8px solid #1f252d;
+      box-shadow: 0 0 0 8px #0b1015 inset;
+      padding: 16px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .block {
+      width: 20px;
+      height: 20px;
+      background-color: var(--base);
+      background-image:
+        linear-gradient(var(--hl), var(--hl)),
+        linear-gradient(var(--hl), var(--hl)),
+        linear-gradient(var(--sh), var(--sh)),
+        linear-gradient(var(--sh), var(--sh));
+      background-size: 100% 4px, 4px 100%, 100% 4px, 4px 100%;
+      background-position: top, left, bottom, right;
+      background-repeat: no-repeat;
+    }
+
+    .block-cyan {
+      --base: #00fdff;
+      --hl: #bdfdff;
+      --sh: #0aa7b0;
+    }
+
+    .block-pink {
+      --base: #ff8fab;
+      --hl: #ffd6df;
+      --sh: #c95c79;
+    }
+
+    .block-yellow {
+      --base: #ffd64f;
+      --hl: #fff2b3;
+      --sh: #cc9a00;
+    }
+
+    .block-green {
+      --base: #2cff72;
+      --hl: #aaffc4;
+      --sh: #0f6a36;
+    }
+
+    .block-purple {
+      --base: #9d4dff;
+      --hl: #d9b3ff;
+      --sh: #5a20b3;
+    }
+
+    .block-blue {
+      --base: #00a2ff;
+      --hl: #a8e4ff;
+      --sh: #005b99;
+    }
+
+    .block-red {
+      --base: #ff4d4d;
+      --hl: #ffb3b3;
+      --sh: #b03030;
+    }
+
+    .block-empty {
+      width: 20px;
+      height: 20px;
+      background-color: #000000;
+      background-image:
+        linear-gradient(#141a20, #141a20),
+        linear-gradient(#141a20, #141a20),
+        linear-gradient(#070b0f, #070b0f),
+        linear-gradient(#070b0f, #070b0f);
+      background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%;
+      background-position: top, left, bottom, right;
+      background-repeat: no-repeat;
+    }
+
+    .area {
+      width: 500px;
+      height: 1000px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .death {
+      font-size: 20px;
+    }
+
+    .ui h1 {
+      font-size: 28px;
+      letter-spacing: 2px;
+    }
+
+    .ui select {
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .area {
+      width: 500px;
+      height: 1000px;
+      display: flex;
+      flex-wrap: wrap;
+      image-rendering: pixelated;
+      background-color: #0b1015;
+      background-image: linear-gradient(#2a2e35 1px, transparent 1px), linear-gradient(90deg, #2a2e35 1px, transparent 1px);
+      background-size: 20px 20px, 20px 20px;
+      border: 8px solid #3b4552;
+      box-shadow: 0 0 0 8px #1f252d, 0 0 40px rgba(0, 255, 255, 0.12) inset;
+    }
+
+    .death {
+      font-size: 22px;
+      padding: 10px 14px;
+      width: 500px;
+      background: #10151b;
+      border: 6px solid #2b3540;
+      box-shadow: 0 0 0 6px #1f252d inset;
+      color: #cdefff;
+      height: 80px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body.theme-a {
+      background: #1b1f23;
+      color: #cdefff;
+    }
+
+    body.theme-a .ui h1 {
+      color: #cdefff;
+      text-shadow: -2px -2px 0 #0a0f14, 2px 2px 0 #00fdff;
+    }
+
+    body.theme-a .area {
+      background-color: #0b1015;
+      background-image: linear-gradient(#2a2e35 1px, transparent 1px), linear-gradient(90deg, #2a2e35 1px, transparent 1px);
+      background-size: 20px 20px, 20px 20px;
+      border: 8px solid #3b4552;
+      box-shadow: 0 0 0 8px #1f252d, 0 0 40px rgba(0, 255, 255, 0.12) inset;
+    }
+
+    body.theme-a .death {
+      background: #10151b;
+      border: 6px solid #2b3540;
+      box-shadow: 0 0 0 6px #1f252d inset;
+    }
+
+    body.theme-b {
+      background: radial-gradient(circle at 30% 20%, #0b1020 0%, #000 60%);
+      color: #e8f7ff;
+    }
+
+    body.theme-b .ui h1 {
+      color: #e8f7ff;
+      text-shadow: 0 0 8px #00e5ff, 0 0 12px #ff00f5;
+    }
+
+    body.theme-b .area {
+      background-image: radial-gradient(#0a0a0a 1px, transparent 1px), radial-gradient(#0a0a0a 1px, transparent 1px);
+      background-position: 0 0, 10px 10px;
+      background-size: 20px 20px;
+      border: 6px solid #00e5ff;
+      box-shadow: 0 0 12px #00e5ff, 0 0 24px #ff00f5 inset;
+    }
+
+    body.theme-b .death {
+      color: #ffffff;
+      border: 2px dashed #ff00f5;
+      box-shadow: 0 0 8px #ff00f5;
+      text-shadow: 0 0 6px #ff00f5, 0 0 10px #00e5ff;
+    }
+
+    body.theme-c {
+      background: linear-gradient(135deg, #fefefe, #f3f9ff);
+      color: #3b3b3b;
+    }
+
+    body.theme-c .ui h1 {
+      color: #ff477e;
+      text-shadow: -2px -2px 0 #ffd6df, 2px 2px 0 #ffc4d6;
+    }
+
+    body.theme-c .area {
+      background-image: linear-gradient(#ffffff 0 0), repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0 1px, transparent 1px 20px), repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0 1px, transparent 1px 20px);
+      background-size: auto, 20px 20px, 20px 20px;
+      border: 8px solid #ffc4d6;
+      box-shadow: 8px 8px 0 #ff8fab, 16px 16px 0 #fcb2d4;
+    }
+
+    body.theme-c .death {
+      background: #ffffff;
+      color: #ff477e;
+      border: 4px solid #ffd6df;
+      box-shadow: 6px 6px 0 #ffd6df;
+    }
+  </style>
+
+
+  <script>
+    //获取元素
+    const area = document.querySelector('.area')
+    const death = document.querySelector('.death')
+    //触底时采用另一种数组存储
+    //用tArr[y][x]=1 来表示这个坐标下有小方块
+    let tArr = [[], []]
+
+    //开局初始化tArr
+    start()
+    function start() {
+      for (let i = 0; i < 50; i++) {
+        tArr[i] = []
+        for (let j = 0; j < 25; j++) {
+          tArr[i][j] = 0
+        }
+      }
+    }
+
+    //获取方向
+    let d = ''
+    let r = ''
+
+    document.addEventListener('keydown', (e) => {
+      //平移方向
+      if (e.key === 'a') {
+        d = 'left'
+      }
+      //按右键
+      if (e.key === 'd') {
+        d = 'right'
+      }
+
+      //旋转方向
+      if (e.key === 'ArrowLeft') {
+        r = 'left'
+      }
+      if (e.key === 'ArrowRight') {
+        r = 'right'
+      }
+      if (e.key === 'ArrowUp') {
+        r = 'up'
+      }
+      if (e.key === 'ArrowDown') {
+        r = 'down'
+      }
+    })
+
+
+    //生成方块函数
+    let arr = []
+    let b = 0  //下落随时间累加的y坐标
+    let a = 0 //随机的x坐标
+    let c = 0 //方块种类 (旋转时方块的状态)
+
+    function random() {
+      let num = []
+      b = 0
+      //生成随机坐标
+      a = Math.floor(Math.random() * 24)
+      c = 1
+      c = Math.floor(Math.random() * 4 + 1)
+      //生成随机种类的方块
+      if (c === 1) {
+        num = [0, 2, 0, 3]
+      }
+      else if (c === 2) {
+        num = [1, 1, 1, 2]
+      }
+      else if (c === 3) {
+        num = [1, 0, 1, 1]
+      }
+      else if (c === 4) {
+        num = [0, 2, 1, 2]
+      }
+      arr = [[a, b], [a, b + 1],
+      [a + num[0], b + num[1]], [a + num[2], b + num[3]]]
+      return arr
+    }
+    //开局生成随机方块
+    random()
+
+
+
+    //检查位置是否合法
+    function isValidPosition(newArr) {
+      for (let i = 0; i < newArr.length; i++) {
+        const [x, y] = newArr[i]
+        //检查边界
+        if (x < 0 || x >= 25 || y < 0 || y >= 50) {
+          return false
+        }
+        //检查与已固定方块的碰撞
+        if (tArr[y] && tArr[y][x] === 1) {
+          return false
+        }
+      }
+      return true
+    }
+
+    //旋转
+    function rotate() {
+      let newArr = [...arr] // 保存原始位置
+
+      //根据方块种类和旋转方向改变数组 
+      if (c === 1) {
+        a = arr[1][0]
+        b = arr[1][1] - 1
+        if ((r === 'left' || r === 'right')) {
+          newArr = [
+            [a, b + 1],
+            [a + 1, b + 1],
+            [a + 2, b + 1],
+            [a + 3, b + 1],
+          ]
+        }
+        //第一种按上下还会还原成之前的样子 
+        else if (r === 'up' || r === 'down') {
+          newArr = [
+            [a, b],
+            [a, b + 1],
+            [a, b + 2],
+            [a, b + 3]]
+        }
+      }
+
+      else if (c === 2) {
+        a = arr[1][0]
+        b = arr[1][1] - 1
+        if (r === 'left') {
+          newArr = [
+            [a + 1, b],
+            [a, b],
+            [a, b + 1],
+            [a - 1, b + 1],
+          ]
+        }
+        else if (r === 'right') {
+          newArr = [
+            [a - 1, b],
+            [a, b],
+            [a, b + 1],
+            [a + 1, b + 1],
+          ]
+        }
+        //第二种按上下还会还原成之前的样子 
+        else if (r === 'up' || r === 'down') {
+          newArr = [
+            [a, b],
+            [a, b + 1],
+            [a + 1, b + 1],
+            [a + 1, b + 2]]
+        }
+      }
+
+      else if (c === 3) {
+        // L形方块的旋转逻辑
+        a = arr[1][0]
+        b = arr[1][1]
+        if (r === 'left' || r === 'up') {
+          newArr = [
+            [a, b],
+            [a, b + 1],
+            [a, b + 2],
+            [a + 1, b + 2]
+          ]
+        }
+        else if (r === 'right' || r === 'down') {
+          newArr = [
+            [a, b],
+            [a + 1, b],
+            [a + 2, b],
+            [a, b + 1]
+          ]
+        }
+      }
+
+      else if (c === 4) {
+        a = arr[2][0]
+        b = arr[2][1] - 2
+
+        if (r === 'left') {
+          newArr = [
+            [a - 2, b + 2],
+            [a - 1, b + 2],
+            [a, b + 2],
+            [a, b + 1],
+          ]
+        }
+        else if (r === 'right') {
+          newArr = [
+            [a, b + 3],
+            [a, b + 2],
+            [a + 1, b + 2],
+            [a + 2, b + 2],
+          ]
+        }
+        else if (r === 'up' || r === 'down') {
+          newArr = [
+            [a - 1, b + 2],
+            [a, b + 2],
+            [a, b + 3],
+            [a, b + 4],
+          ]
+        }
+      }
+      // 检查新位置是否合法
+      if (isValidPosition(newArr)) {
+        arr = newArr
+        render()
+      }
+    }
+
+
+
+
+    //检查下落是否合法
+    function canMoveDown() {
+      for (let i = 0; i < arr.length; i++) {
+        const [x, y] = arr[i]
+        // 检查是否触底或与已固定方块碰撞
+        if (y + 1 >= 50 || touchJudge(tArr, x, y + 1)) {
+          return false
+        }
+      }
+      return true
+    }
+
+    //检查水平移动是否合法
+    function canMoveHorizontal(direction) {
+      const offset = direction === 'left' ? -1 : 1
+      for (let i = 0; i < arr.length; i++) {
+        const [x, y] = arr[i]
+        const newX = x + offset
+        // 检查边界和碰撞
+        if (newX < 0 || newX >= 25 || touchJudge(tArr, newX, y)) {
+          return false
+        }
+      }
+      return true
+    }
+
+    //变量b随时间累加
+    const timer = setInterval(() => {
+      //如果触底或者碰撞
+      if (!canMoveDown()) {
+        touch()//生成碰撞之后的数组
+        eJudge()//判断和处理消除
+        random() //继续生成随机方块
+        //判断死亡
+        if (tArr[0].some((value) => value === 1)) {
+          deathWarning()//触发死亡效果
+        }
+      } else {
+        //1. 处理旋转
+        if (r) {
+          rotate()
+        }
+
+        //2. 处理水平移动
+        if (d && canMoveHorizontal(d)) {
+          for (let i = 0; i < arr.length; i++) {
+            arr[i][0] += (d === 'left' ? -1 : 1)
+          }
+        }
+
+        //3. 处理下落
+        for (let i = 0; i < arr.length; i++) {
+          arr[i][1]++
+        }
+
+        render()
+        d = ''
+        r = ''
+      }
+    }, 100)
+
+
+    //判断方块渲染
+    function judge(arr, x, y) {
+      for (let i in arr) {
+        if (arr[i][0] === x && arr[i][1] === y) {
+          return true
+        }
+      }
+    }
+    //判断触底方块渲染
+    function touchJudge(tArr, x, y) {
+      // 检查坐标是否在有效范围内
+      if (y >= 0 && y < 50 && x >= 0 && x < 25) {
+        return tArr[y][x] === 1
+      }
+      return false
+    }
+    //判断处理消除
+    function eJudge() {
+      let linesCleared = 0
+
+      //从底部向上检查每一行
+      for (let y = 49; y >= 0; y--) {
+        //如果这一行每个元素都为一
+        if (tArr[y].every((value) => value === 1)) {
+          linesCleared++
+          //将上面的行下移
+          for (let i = y; i > 0; i--) {
+            tArr[i] = [...tArr[i - 1]] // 使用展开运算符复制数组
+          }
+          //清空最顶行
+          tArr[0] = new Array(25).fill(0)
+          //由于下移了一行，需要重新检查当前行
+          y++
+        }
+      }
+
+      //显示消除的行数
+      if (linesCleared > 0) {
+        death.innerHTML = `消除 ${linesCleared} 行`
+        setTimeout(() => {
+          death.innerHTML = ''
+        }, 1000)
+      }
+    }
+
+
+
+
+    //渲染游戏区域
+    function render() {
+      let block = ''
+      let fallingClass = 'block-yellow'
+      if (c === 1) {
+        fallingClass = 'block-yellow'
+      } else if (c === 2) {
+        fallingClass = 'block-blue'
+      } else if (c === 3) {
+        fallingClass = 'block-purple'
+      } else if (c === 4) {
+        fallingClass = 'block-green'
+      }
+      for (let y = 0; y < 50; y++) {
+        for (let x = 0; x < 25; x++) {
+          //渲染四种方块
+          if (judge(arr, x, y)) {
+            block += ` <div class="block ${fallingClass}"></div>`
+          }
+          //渲染触底方块 
+          else if (touchJudge(tArr, x, y)) {
+            block += ` <div class="block block-pink"></div>`
+          }
+          //渲染黑色背景板
+          else {
+            block += ` <div class="block-empty"></div>`
+          }
+        }
+      }
+      area.innerHTML = block
+    }
+    //开局先渲染
+    render()
+
+
+    //触底 处理
+    function touch() {
+      //每次触底都把相应数据存进去
+      for (let k = 0; k < arr.length; k++) {
+        const [x, y] = arr[k]
+        if (y >= 0 && y < 50 && x >= 0 && x < 25) {
+          tArr[y][x] = 1
+        }
+      }
+      //渲染触底的部分
+      render()
+    }
+
+    //死亡效果
+    function deathWarning() {
+      clearInterval(timer)
+      death.innerHTML = '游戏结束'
+    }
+  </script>
+</body>
+
+</html>
