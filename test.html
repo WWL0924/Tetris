@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>函数作用域</title>
+</head>
+
+<body>
+
+
+  <script>
+
+
+    // function change(arr) {
+    //   arr = [1, 2, 3, 4]
+    // }
+    // change(arr)
+    // console.log(arr);  // [1, 2, 3]
+
+
+    // //传入参数相当于
+    // function change() {
+    //   let arr=[]  //改变的是函数里面的arr
+    //   arr = [1, 2, 3, 4]
+
+    // }
+
+
+    let arr = [1, 2, 3]
+
+    function change2() {
+      arr = [1, 2, 3, 4]
+    }
+    change2(arr)
+    console.log(arr);  // [1, 2, 3, 4]
+
+
+
+    function change1(arr) {
+      arr.push(4)  //取值
+    }
+    change1(arr)
+    console.log(arr);  //[1, 2, 3, 4]
+
+    function change3() {
+      arr.push(4)
+    }
+    change3(arr)
+    console.log(arr);  //[1, 2, 3, 4]
+
+
+    // function u() {
+    //   let undefined = 1
+    //   console.log(undefined);  //1
+    // }
+
+    // u()
+
+
+    //赋值不可靠 不会改变旧的值 创建新数组
+    let a1 = [1, 2, 3, 4]
+
+    //赋值
+    a1 = [1, 2, 3]
+
+    console.log(a1);  // [1, 2, 3]
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

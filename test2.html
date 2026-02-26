@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>every some</title>
+</head>
+
+<body>
+
+
+
+  <script>
+    // let arr1 = [2, 3, 4]
+
+    // //every 都满足返回t
+    // function every(arr, callback) {
+    //   let a = true
+    //   //空数组也满足
+    //   //数组里有值的情况
+    //   for (let i = 0; i < arr.length; i++) {
+    //     if (!callback(arr[i])) {
+    //       a = false
+    //       break
+    //     }
+    //   }
+    //   return a
+    // }
+    // //回调函数把条件return出去了
+    // console.log(every(arr1, (value) => value === 1));
+
+
+    // // some 一个满足就返回t
+    // let arr2 = [2, 3, 1, 4]
+    // function some(arr, callback) {
+    //   let a = false
+    //   //数组为空的情况下也是false
+    //   //数组为空的时候无法进入for循环 是原始值
+    //   for (let i = 0; i < arr.length; i++) {
+    //     if (callback(arr[i])) {
+    //       a = true
+    //       break
+    //     }
+    //   }
+    //   return a
+    // }
+    // console.log(some(arr2, (value) => value === 1));
+
+
+    // //这个函数有没有发挥作用
+    // //达到条件返回true 没达到返回undefined
+    // let tArr = [
+    //   [0, 0, 0, 0],
+    //   [0, 1, 0, 0]
+    // ]
+    // //判断死亡
+    // function deathJudge() {
+    //   for (let i = 0; i < tArr.length; i++) {
+    //     if (tArr[0].some((value) => value === 1)) {
+    //       return true
+    //     }
+    //   }
+    // }
+    // console.log(deathJudge());
+
+    let a = 0
+    //在计时器内部可以清除计时器么
+    let timer = setInterval(() => {
+      a++
+      console.log('start', a);
+
+      //写在下面不可以 达到if条件之后还会继续执行上面的
+      if (a > 5) {
+        a++
+        console.log('马上要结束', a);
+        if (a === 10) {
+          death()
+        }
+      }
+    }, 1000)
+
+
+
+    function death() {
+      console.log('over', a);
+      clearInterval(timer)
+    }
+
+
+  </script>
+</body>
+
+</html>
